@@ -142,13 +142,10 @@ func (cm *ClosestMatch) Closest(searchWord string) string {
 }
 
 // ClosestN searches for the `searchWord` and returns the n closests matches
-func (cm *ClosestMatch) ClosestN(searchWord string, max int) []string {
-	matches := make([]string, 0, max)
-	for i, pair := range rankByWordCount(cm.match(searchWord)) {
-		if i >= max {
-			break
-		}
-		matches = append(matches, pair.Key)
+func (cm *ClosestMatch) ClosestN(searchWord string, max int) []Pair {
+	matches := make([]Pair, 0, max)
+	for _, pair := range rankByWordCount(cm.match(searchWord)) {
+		matches = append(matches, pair)
 	}
 	return matches
 }
